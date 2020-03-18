@@ -1,6 +1,7 @@
-package objects_eg2;
+package moo.demo.main;
+import moo.demo.Data.Data;
 import java.util.Scanner;
-public class main {
+public class main{
     public static void main(String[] args){
         Scanner read = new Scanner(System.in);
         int counter = 1;

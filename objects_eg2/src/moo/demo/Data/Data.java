@@ -1,9 +1,10 @@
-package objects_eg2;
+package moo.demo.Data;
+
 public class Data {
-    String name;
-    double gpa;
-    int ID;
-    void list(){
+    public String name;
+    public double gpa;
+    public int ID;
+    public void list(){
         System.out.println("Student's name: " + name +
                 "\nStudent's GPA: " + gpa +
                 "\nStudent's ID: " + ID);
