@@ -3,7 +3,15 @@ package assignment;
 public class Book {
     private String bookName , ISBN , authorName , publisher;
     private int pages;
-    //empty constructor
+    //parameterized constructor
+    public Book(String bookName , String ISBN ,String authorName ,String publisher,int pages ){
+        this.bookName = bookName;
+        this.ISBN = ISBN;
+        this.authorName = authorName;
+        this.publisher = publisher;
+        this.pages = pages;
+    }
+    //empty(NULL) constructor
     public Book(){
         // \0 is NULL in ascii
         this.bookName = "\0";
@@ -11,13 +19,6 @@ public class Book {
         this.authorName = "\0";
         this.publisher = "\0";
         this.pages = 0;
-    }
-    public Book(String bookName , String ISBN ,String authorName ,String publisher,int pages ){
-        this.bookName = bookName;
-        this.ISBN = ISBN;
-        this.authorName = authorName;
-        this.publisher = publisher;
-        this.pages = pages;
     }
     void setBookName(String book){
         this.bookName = book;
