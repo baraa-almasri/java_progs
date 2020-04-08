@@ -1,19 +1,19 @@
 package assignment2;
 
 public class SavingAccount {
-    static int annualIntrestsRate;
-    private double savingBalance;
+    private static int annualIntrestsRate;
+    private double savingsBalance;
 
-    public SavingAccount(double savingBalance){
-        this.savingBalance = savingBalance;
+    public SavingAccount(double savingsBalance){
+        this.savingsBalance = savingsBalance;
     }
 
-    public double getSavingBalance(){
-        return savingBalance;
+    public double getSavingsBalance(){
+        return this.savingsBalance;
     }
 
-    public double calculateMonthlyIntrests(){
-        return (savingBalance*annualIntrestsRate)/12;
+    public void calculateMonthlyIntrests(){
+        this.savingsBalance += (savingsBalance*annualIntrestsRate)/12;
     }
 
     static void modifyIntrestRate(int newValue){
