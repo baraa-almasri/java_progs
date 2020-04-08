@@ -7,15 +7,22 @@ public class Demo {
 
         saving1 = new SavingAccount(2000);
         SavingAccount.modifyIntrestRate(4);
-        System.out.printf("%f\n", saving1.calculateMonthlyIntrests() );
+        saving1.calculateMonthlyIntrests();
+        System.out.printf("%f\n", saving1.getSavingsBalance() );
         SavingAccount.modifyIntrestRate(5);
-        System.out.printf("%f\n\n", saving1.calculateMonthlyIntrests() );
+        saving1.calculateMonthlyIntrests();
+        System.out.printf("%f\n", saving1.getSavingsBalance() );
+
+        System.out.printf("\n");
 
         saving2 = new SavingAccount(3000);
         SavingAccount.modifyIntrestRate(4);
-        System.out.printf("%f\n", saving2.calculateMonthlyIntrests() );
+        saving2.calculateMonthlyIntrests();
+        System.out.printf("%f\n", saving2.getSavingsBalance() );
         SavingAccount.modifyIntrestRate(5);
-        System.out.printf("%f\n", saving2.calculateMonthlyIntrests() );
+        saving2.calculateMonthlyIntrests();
+        System.out.printf("%f\n", saving2.getSavingsBalance() );
+
 
 
 
