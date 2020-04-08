@@ -35,6 +35,21 @@ public class Book {
     void setPages(int pages){
         this.pages = pages;
     }
+    String getBookName(){
+        return this.bookName;
+    }
+    String getISBN(){
+        return this.ISBN;
+    }
+    String getAuthorName(){
+        return this.authorName;
+    }
+    String getPublisher(){
+        return this.publisher;
+    }
+    int getPages(){
+        return this.pages;
+    }
     void getBookInfo(){
         System.out.printf("Book title: %s\n",this.bookName);
         System.out.printf("ISBN: %s\n",this.ISBN);
