@@ -13,12 +13,12 @@ public class BookTest {
         b1.setPublisher("International Bookshop");
         b1.setPages(270);
         //calling the member method getBookInfo
-        b1.getBookInfo();
+        System.out.printf("%s\n\n",b1.getBookInfo());
 
         //Book2
         //using constructor
         b2 = new Book("Harry Potter & the Deathly Hallows","1449-7254-4263-8274 4","JK Rowling","International Bookshop",1600);
-        b2.getBookInfo();
+        System.out.printf("%s\n\n",b2.getBookInfo());
 
         //Book3
         //using setter methods
@@ -29,6 +29,7 @@ public class BookTest {
         b3.setPublisher("International Bookshop");
         b3.setPages(270);
         //calling the member method getBookInfo
-        b3.getBookInfo();
+        System.out.printf("%s\n\n",b2.getBookInfo());
+
     }
 }
