@@ -50,13 +50,7 @@ public class Book {
     int getPages(){
         return this.pages;
     }
-    void getBookInfo(){
-        System.out.printf("Book title: %s\n",this.bookName);
-        System.out.printf("ISBN: %s\n",this.ISBN);
-        System.out.printf("Book's author: %s\n",this.authorName);
-        System.out.printf("Book's publisher: %s\n",this.publisher);
-        System.out.printf("Number of pages: %d\n",this.pages);
-        System.out.printf("\n");
-
+    String getBookInfo(){
+        return ( this.bookName + " " + this.ISBN + " " + this.authorName + " " + this.publisher + " " + this.pages);
     }
 }
