@@ -10,6 +10,7 @@ public class Main{
         
         for(int emp = 0 ; emp < numberOfEmployees ; emp++ ){
             employees[emp] = new Employee();
+
             System.out.printf("Enter Employee #%d First Name: ",(emp+1));
             employees[emp].setFName(read.next());
 
@@ -60,11 +61,9 @@ public class Main{
             System.out.printf("Enter department #%d Location: ", index+1);
             Departments[index].setLocation(read.next());
 
-            employees[index] = new Employee();
             System.out.printf("Enter department #%d Name: ", index+1);
             Departments[index].setDepartmentName(read.next());
 
-            employees[index] = new Employee();
             System.out.printf("Enter department #%d ID: ", index+1);
             Departments[index].setDepartmentID(read.nextInt());
 
@@ -86,4 +85,3 @@ public class Main{
 
     }
 }
-
