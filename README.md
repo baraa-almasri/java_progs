@@ -1,2 +1,2 @@
-# java_progs
-Simple Java programs
+# kt_progs
+Simple Kotlin programs `java previously check older commits`
