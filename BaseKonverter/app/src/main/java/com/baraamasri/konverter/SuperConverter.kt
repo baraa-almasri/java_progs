@@ -11,10 +11,6 @@ object SuperConverter {
     fun convert(number0: String, numberBase: Int, targetBase: Int): String {
         var number = number0
 
-        // always make the number look like a real number
-        number += if(number.indexOf('.') == -1) "." else ""
-        number = number.toUpperCase()
-
         // ok this one is a bit messy
         // first check if the number is valid according to its base
         // if valid, check if the number's base is 10 if so

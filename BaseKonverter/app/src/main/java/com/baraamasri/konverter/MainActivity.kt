@@ -13,15 +13,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun convertBlyat(view: View) {
+    fun convert(view: View) {
 
         //view as Button
-        welcomeText.text = if(!boxesEmpty())
+        welcomeText.text = if(!boxesEmpty() &&
+            isBaseValid(base.text.toString().toInt()) &&
+            isBaseValid(targetBase.text.toString().toInt()))
             SuperConverter.convert(
-            number.text.toString(),
+            validateNumber( number.text.toString() ),
             base.text.toString().toInt(),
             targetBase.text.toString().toInt()
-        ) else "Fill boxes blyat!!"
+        ) else "Fill boxes correctly blyat!!"
 
 
     }
@@ -31,5 +33,24 @@ class MainActivity : AppCompatActivity() {
         return  number.text.isEmpty() &&
                 base.text.isEmpty() &&
                 targetBase.text.isEmpty()
+    }
+
+    private fun validateNumber(num: String): String {
+        var number = num
+        // always make the number look like a real number
+        number += if(number.indexOf('.') == -1) "." else ""
+        number = number.toUpperCase()
+
+        val pointCount = number.count { chr -> chr == '.'}
+        return number.substring(0,
+            if(pointCount == 1) number.length
+            else number.lastIndexOf('.')
+        )
+
+    }
+
+    private fun isBaseValid(base: Int): Boolean {
+
+        return base != 1
     }
 }
