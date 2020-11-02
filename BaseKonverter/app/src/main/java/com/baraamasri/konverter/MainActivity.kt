@@ -3,7 +3,7 @@ package com.baraamasri.konverter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
+import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,23 +15,16 @@ class MainActivity : AppCompatActivity() {
 
     fun convert(view: View) {
 
-        welcomeText.text = if(!boxesEmpty() &&
-            isBaseValid(base.text.toString().toInt()) &&
-            isBaseValid(targetBase.text.toString().toInt()))
+        welcomeText.text = if(isNumberValid(number) &&
+            isBaseValid(base) &&
+            isBaseValid(targetBase))
             SuperConverter.convert(
             validateNumber( number.text.toString() ),
             base.text.toString().toInt(),
             targetBase.text.toString().toInt()
-        ) else "Fill boxes correctly!!"
+        ) else "Fill boxes correctly blyat!!"
 
 
-    }
-
-    private fun boxesEmpty(): Boolean {
-
-        return  number.text.isEmpty() &&
-                base.text.isEmpty() &&
-                targetBase.text.isEmpty()
     }
 
     private fun validateNumber(num: String): String {
@@ -48,8 +41,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun isBaseValid(base: Int): Boolean {
+    private fun isNumberValid(number: EditText): Boolean {
 
-        return base != 1
+        return number.text.isNotEmpty()
     }
+
+    private fun isBaseValid(base: EditText): Boolean {
+
+        return base.text.isNotEmpty() && base.text.toString().toInt() > 1
+    }
+
 }
