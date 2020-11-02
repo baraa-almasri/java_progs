@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
 
     fun convert(view: View) {
 
-        //view as Button
         welcomeText.text = if(!boxesEmpty() &&
             isBaseValid(base.text.toString().toInt()) &&
             isBaseValid(targetBase.text.toString().toInt()))
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
             validateNumber( number.text.toString() ),
             base.text.toString().toInt(),
             targetBase.text.toString().toInt()
-        ) else "Fill boxes correctly blyat!!"
+        ) else "Fill boxes correctly!!"
 
 
     }

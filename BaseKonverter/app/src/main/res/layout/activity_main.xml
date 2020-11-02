@@ -10,11 +10,12 @@
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
         android:text="Convert Something Blyat!"
         android:textColor="#9C27B0"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,85 +27,83 @@
         android:layout_marginTop="256dp"
         android:layout_marginEnd="1dp"
         android:orientation="vertical"
-        android:paddingStart="5pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeText">
 
-        <TextView
-            android:id="@+id/msg1"
+        <LinearLayout
+            android:id="@+id/toplo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5pt"
-            android:paddingStart="10pt"
-            android:paddingLeft="10pt"
-            android:paddingEnd="10pt"
-            android:paddingRight="10pt"
-            android:text="Enter Number Blyat!"
-            android:textSize="24sp" />
+            android:orientation="vertical"
+            android:padding="5pt">
 
-        <EditText
-            android:id="@+id/number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            <TextView
+                android:id="@+id/msg1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5pt"
+                android:text="Enter Number!"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/textContainer1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="5pt">
 
-            <TextView
-                android:id="@+id/msg2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="5pt"
-                android:text="Entet Base Blyat!"
-                android:textSize="18sp" />
-
-            <Space
-                android:layout_width="64dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5" />
-
-            <TextView
-                android:id="@+id/msg3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="5pt"
-                android:paddingLeft="5pt"
-                android:text="Enter Target Base Blyat!"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="5pt">
-
-            <EditText
-                android:id="@+id/base"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="phone" />
-
-            <Space
+            <LinearLayout
+                android:id="@+id/baseLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="15.0" />
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/targetBase"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/msg2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5pt"
+                    android:text="Number's Base"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/base"
+                    android:layout_width="192dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/targetLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="phone" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/msg3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5pt"
+                    android:text="Target's Base"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/targetBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="phone" />
+            </LinearLayout>
         </LinearLayout>
 
         <Space
@@ -117,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="convert"
-            android:text="Convert Blyat!"
+            android:text="Convert!"
             android:textColor="#FFFFFF"
             android:textSize="24sp" />
 

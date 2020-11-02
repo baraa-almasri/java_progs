@@ -1,6 +1,5 @@
 import SeperatedNumber
 import kotlin.text.StringBuilder
-import java.lang.Math
 import kotlin.math.pow
 
 object SuperConverter {
@@ -8,8 +7,7 @@ object SuperConverter {
     // BIG FAT NOTE ABOUT THIS CLASS!!
     // numbers are passed as strings, because of bases > 10
 
-    fun convert(number0: String, numberBase: Int, targetBase: Int): String {
-        var number = number0
+    fun convert(number: String, numberBase: Int, targetBase: Int): String {
 
         // ok this one is a bit messy
         // first check if the number is valid according to its base
@@ -59,7 +57,6 @@ object SuperConverter {
 
 
 // more private level 1:
-// string ops
 
     private fun isNumberValid(number: String, numberBase: Int): Boolean {
         for(digit: Char in number) {
