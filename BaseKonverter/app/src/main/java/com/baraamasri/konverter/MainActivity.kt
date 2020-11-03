@@ -15,35 +15,63 @@ class MainActivity : AppCompatActivity() {
 
     fun convert(view: View) {
 
-        welcomeText.text = if(isNumberValid(number) &&
+        welcomeText.text = if(number.text.isNotEmpty()  &&
             isBaseValid(base) &&
             isBaseValid(targetBase))
             SuperConverter.convert(
             validateNumber( number.text.toString() ),
             base.text.toString().toInt(),
             targetBase.text.toString().toInt()
+
         ) else "Fill boxes correctly blyat!!"
 
-
     }
 
-    private fun validateNumber(num: String): String {
-        var number = num
-        // always make the number look like a real number
-        number += if(number.indexOf('.') == -1) "." else ""
-        number = number.toUpperCase()
+    private fun validateNumber(number: String): String {
 
-        val pointCount = number.count { chr -> chr == '.'}
-        return number.substring(0,
-            if(pointCount == 1) number.length
-            else number.lastIndexOf('.')
+        return removeExtraDots(
+            (removeGarbageInitials(number) +
+                    // R ∋ x
+                    if(number.indexOf('.') == -1) "."
+                    else ""
+                    ).toUpperCase()
         )
-
     }
 
-    private fun isNumberValid(number: EditText): Boolean {
+    private fun removeGarbageInitials(number: String): String {
+        var num = number
+        num = removeInitialZeros(num)
+        num = removeInitialDots(num)
 
-        return number.text.isNotEmpty()
+        return if(isNumberValid(num)) num
+        else removeGarbageInitials(num)
+    }
+
+    private fun removeExtraDots(number: String): String {
+
+        return if(number.count { chr -> chr == '.'} == 1) number
+            else removeExtraDots(
+                number.substring(0, number.lastIndexOf('.'))
+        )
+    }
+
+    private fun removeInitialZeros(number: String): String {
+
+        return if(number[0] != '0') number
+            else removeInitialZeros(number.substring(1,number.length - 1))
+    }
+
+    private fun removeInitialDots(number: String): String {
+
+        return if(number[0] != '.') number
+            else removeInitialDots(number.substring(1,number.length - 1))
+    }
+
+    private fun isNumberValid(number: String): Boolean {
+
+        return number.isNotEmpty() &&
+                number[0] != '.' &&
+                number[0] != '0'
     }
 
     private fun isBaseValid(base: EditText): Boolean {
