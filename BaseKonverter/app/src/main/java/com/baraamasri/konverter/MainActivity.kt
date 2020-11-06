@@ -1,5 +1,8 @@
 package com.baraamasri.konverter
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -15,22 +18,33 @@ class MainActivity : AppCompatActivity() {
 
     fun convert(view: View) {
 
-        welcomeText.text = if(number.text.isNotEmpty()  &&
-            isBaseValid(base) &&
-            isBaseValid(targetBase))
-            SuperConverter.convert(
-            validateNumber( number.text.toString() ),
-            base.text.toString().toInt(),
-            targetBase.text.toString().toInt()
+        welcomeText.setText(
+            if(isNumberValid(number)  &&
+                isBaseValid(base) &&
+                isBaseValid(targetBase)
+                )
+                removeInitialDots(
+                    SuperConverter.convert(
+                        validateNumber( number.text.toString() ),
+                        base.text.toString().toInt(),
+                        targetBase.text.toString().toInt()
+                )
+            ) else "Fill boxes correctly blyat!!"
+        )
 
-        ) else "Fill boxes correctly blyat!!"
+    }
+
+    fun copyToCB(view: View) {
+        val cb = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("Blyat", welcomeText.text.toString())
+        cb.setPrimaryClip(clipData)
 
     }
 
     private fun validateNumber(number: String): String {
 
         return removeExtraDots(
-            (removeGarbageInitials(number) +
+            (removeInitialDots(number) +
                     // R ∋ x
                     if(number.indexOf('.') == -1) "."
                     else ""
@@ -38,40 +52,23 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun removeGarbageInitials(number: String): String {
-        var num = number
-        num = removeInitialZeros(num)
-        num = removeInitialDots(num)
-
-        return if(isNumberValid(num)) num
-        else removeGarbageInitials(num)
-    }
-
     private fun removeExtraDots(number: String): String {
 
         return if(number.count { chr -> chr == '.'} == 1) number
-            else removeExtraDots(
-                number.substring(0, number.lastIndexOf('.'))
+        else removeExtraDots(
+            number.substring(0, number.lastIndexOf('.'))
         )
-    }
-
-    private fun removeInitialZeros(number: String): String {
-
-        return if(number[0] != '0') number
-            else removeInitialZeros(number.substring(1,number.length - 1))
     }
 
     private fun removeInitialDots(number: String): String {
 
         return if(number[0] != '.') number
-            else removeInitialDots(number.substring(1,number.length - 1))
+        else "0$number"
     }
 
-    private fun isNumberValid(number: String): Boolean {
+    private fun isNumberValid(number: EditText): Boolean {
 
-        return number.isNotEmpty() &&
-                number[0] != '.' &&
-                number[0] != '0'
+        return number.text.toString().isNotEmpty()
     }
 
     private fun isBaseValid(base: EditText): Boolean {

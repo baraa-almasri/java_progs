@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789."
-                android:ems="16"
+                android:ems="12"
                 android:inputType="textPersonName" />
         </LinearLayout>
 
@@ -112,16 +112,29 @@
         <Space
             android:id="@+id/spacer"
             android:layout_width="match_parent"
-            android:layout_height="15pt" />
+            android:layout_height="2pt" />
 
         <Button
             android:id="@+id/convert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="convert"
-            android:text="Convert!"
+            android:text="CONVERT!"
             android:textColor="#FFFFFF"
             android:textSize="24sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="2pt" />
+
+        <Button
+            android:id="@+id/copyToClipboard"
+            android:text="COPY TO CLIPBOARD!"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:onClick="copyToCB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
