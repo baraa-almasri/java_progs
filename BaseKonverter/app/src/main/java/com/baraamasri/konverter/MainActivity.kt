@@ -18,19 +18,21 @@ class MainActivity : AppCompatActivity() {
 
     fun convert(view: View) {
 
-        welcomeText.setText(
-            if(isNumberValid(number)  &&
-                isBaseValid(base) &&
-                isBaseValid(targetBase)
-                )
-                removeInitialDots(
+        try {
+            welcomeText.text = if (isNumberValid(number) &&
+                    isBaseValid(base) &&
+                    isBaseValid(targetBase)
+
+                ) removeInitialDots(
                     SuperConverter.convert(
-                        validateNumber( number.text.toString() ),
+                        validateNumber(number.text.toString()),
                         base.text.toString().toInt(),
                         targetBase.text.toString().toInt()
-                )
-            ) else "Fill boxes correctly blyat!!"
-        )
+                    )
+                ) else "Fill boxes correctly blyat!!"
+        } catch(nfe: NumberFormatException) {
+            welcomeText.text = "ENTER A CORRECT NUMBER!!"
+        }
 
     }
 
