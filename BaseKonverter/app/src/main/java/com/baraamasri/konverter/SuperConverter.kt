@@ -95,30 +95,27 @@ object SuperConverter {
     private fun convertPostPointFromDecimal(sPostPoint: String, base: Long): String {
         var finalNumber = ""
 
-        val number = SeperatedNumber(sPostPoint)
         var prePointOfResult: Int
-        var postPoint = number.getPostPoint().toDouble()
+        var postPoint = sPostPoint.toDouble()
         val initPostPoint = postPoint
 
         do {
 
             postPoint *= base
-
             prePointOfResult = (postPoint % (if (base > 9) 100 else 10)).toInt()
 
             finalNumber += (
-                (
                     (if(prePointOfResult % base > 9) 55 else 48) // ascii code for CAPS or number
-                    + (prePointOfResult % base) // how much ascii
-                ).toChar()
-            )
+                            + (prePointOfResult % base) // how much ascii
+                    ).toChar()
 
             postPoint -= prePointOfResult
 
         } while(( initPostPoint != postPoint )
-        && postPoint >= 0.099)
+            && postPoint >= 0.00000000000099)
 
-        return finalNumber
+        return finalNumber.substring(0,
+            if(finalNumber.length > 16) 16 else finalNumber.length-1) // I guess 16 digits are enough
     }
 
     /* convert to decimal as this formula
