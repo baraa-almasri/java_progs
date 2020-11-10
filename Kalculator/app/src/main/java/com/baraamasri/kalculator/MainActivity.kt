@@ -66,6 +66,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun clear(view: View) {
+        operatorExist = false
+        numberHasFloatingPoint = false
         expressionParser.expression = " "
         numberDisplay.setText("0")
     }
