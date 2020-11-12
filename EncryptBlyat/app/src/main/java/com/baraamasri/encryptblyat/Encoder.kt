@@ -1,8 +1,8 @@
 package com.baraamasri.encryptblyat
 
-class Encoder(private var message: String) {
+class Encoder(message: String): Crypt(message){
 
-    fun getMessage(): String {
+    override fun getProcessedMessage(): String {
         return this.encodeBlyat()
     }
 

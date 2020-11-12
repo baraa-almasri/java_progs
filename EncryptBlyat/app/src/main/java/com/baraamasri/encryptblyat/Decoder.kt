@@ -1,18 +1,17 @@
 package com.baraamasri.encryptblyat
 
-import java.lang.Math
 
-class Decoder(message: String) {
+class Decoder(message: String): Crypt(message) {
     private var entries: ArrayList<String>
-    private var message: String
     init {
         this.message = message + " "
         this.removeEqualSigns()
         this.entries = ArrayList(0)
     }
 
-    fun getMessage(): String {
+    override fun getProcessedMessage(): String {
         this.updateEntries()
+
         return this.decodeBlyat()
     }
 
