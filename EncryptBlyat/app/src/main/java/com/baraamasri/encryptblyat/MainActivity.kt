@@ -9,9 +9,13 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private var clipboard: ClipboardManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
         clearText.setOnLongClickListener(object: View.OnLongClickListener {
             override fun onLongClick(v: View?): Boolean {
@@ -40,8 +44,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun copyToCB(view: View) {
-        val cb = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        cb.setPrimaryClip( ClipData.newPlainText("Blyat", result.text.toString()) )
+        clipboard!!.text = result.text
+    }
+
+    fun pasteFromCB(view: View) {
+        message.setText(clipboard!!.text.toString())
     }
 
 }

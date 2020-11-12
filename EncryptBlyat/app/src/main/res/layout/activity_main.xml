@@ -22,7 +22,7 @@
 
             <TextView
                 android:id="@+id/result"
-                android:layout_marginTop="100pt"
+                android:layout_marginTop="70pt"
                 android:text="Enter Message Blyat!"
                 android:layout_marginLeft="10pt"
                 android:layout_marginRight="10pt"
@@ -81,28 +81,46 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20pt"
                 android:layout_marginLeft="10pt"
-                android:layout_marginRight="15pt"
+                android:layout_marginRight="10pt"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <Button
-                    android:layout_marginBottom="20pt"
-                    android:layout_marginRight="10pt"
-                    android:layout_marginLeft="10pt"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Copy to Clipboard!"
-                    android:onClick="copyToCB"
-                    android:background="@color/teal_700"/>
+                    android:orientation="vertical"
+                    android:layout_weight="0">
+
+                    <Button
+                        android:layout_marginRight="5pt"
+                        android:layout_marginLeft="10pt"
+                        android:layout_marginBottom="5pt"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Copy to Clipboard!"
+                        android:onClick="copyToCB"
+                        android:background="@color/teal_700"/>
+
+                    <Button
+                        android:layout_marginRight="5pt"
+                        android:layout_marginLeft="10pt"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Paste from Clipboard!"
+                        android:onClick="pasteFromCB"
+                        android:background="@color/teal_700"/>
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/clearText"
-                    android:layout_marginBottom="20pt"
                     android:layout_marginRight="5pt"
-                    android:layout_weight="2"
+                    android:layout_weight="10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="CLEAR!"
@@ -110,15 +128,7 @@
                     android:background="@color/red"/>
 
 
-
             </LinearLayout>
-
-
-
-
         </LinearLayout>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
