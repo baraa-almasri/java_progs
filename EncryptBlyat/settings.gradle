@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Encrypt Blyat"
+rootProject.name = "Encoder Blyat"

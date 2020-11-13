@@ -1,6 +1,4 @@
-package com.baraamasri.encryptblyat
-
-import java.lang.Math
+package com.baraamasri.encoderblyat
 
 abstract class Crypt(protected var message: String) {
     

@@ -1,6 +1,5 @@
-package com.baraamasri.encryptblyat
+package com.baraamasri.encoderblyat
 
-import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -17,26 +16,22 @@ class MainActivity : AppCompatActivity() {
 
         clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
-        clearText.setOnLongClickListener(object: View.OnLongClickListener {
-            override fun onLongClick(v: View?): Boolean {
-                result.setText("Enter Message Blyat!")
+        clearText.setOnLongClickListener {
+            result.setText("Enter Message Blyat!")
 
-                return true
-            }
-        })
+            true
+        }
 
-        clearText.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(v: View?) {
-                message.setText("")
-            }
-        })
+        clearText.setOnClickListener {
+            message.setText("")
+        }
     }
 
     fun evaluate(view: View) {
 
         result.text = (when(view.id) {
-            R.id.encrypt -> (Encoder(message.text.toString()))
-            R.id.decrypt -> (Decoder(message.text.toString()))
+            R.id.encode -> (Encoder(message.text.toString()))
+            R.id.decode -> (Decoder(message.text.toString()))
             else -> Any() as Crypt
 
         }).getProcessedMessage()

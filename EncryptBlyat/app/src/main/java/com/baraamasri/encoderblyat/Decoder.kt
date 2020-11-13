@@ -1,11 +1,20 @@
-package com.baraamasri.encryptblyat
+package com.baraamasri.encoderblyat
+
+import android.os.Build
+import androidx.annotation.RequiresApi
+import java.util.Base64
+import kotlin.collections.ArrayList
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 class Decoder(message: String): Crypt(message) {
     private var entries: ArrayList<String>
     init {
-        this.message = message + " "
-        this.removeEqualSigns()
+        this.message = String(Base64.getDecoder().decode(
+            message.toByteArray()
+        )) + "0" // additional digit in order to get the last digit
+
+        this.removeLowers()
         this.entries = ArrayList(0)
     }
 
@@ -15,15 +24,15 @@ class Decoder(message: String): Crypt(message) {
         return this.decodeBlyat()
     }
 
-    private fun removeEqualSigns() {
-        this.message = this.message.replace("\\=".toRegex(), "")
+    private fun removeLowers() {
+        this.message = this.message.replace("[a-z]".toRegex(), "")
     }
 
     private fun getGreaterThanIndecies(): ArrayList<Int> {
         var indeices = ArrayList<Int>()
 
         for((index, chr) in this.message.withIndex()) {
-            if(chr == '>') {
+            if(!chr.isDigit()) {
                 indeices.add(index)
             }
         }
@@ -40,7 +49,7 @@ class Decoder(message: String): Crypt(message) {
                     this.message.substring(
                             indices[index] + 1,
                             indices[index + 1]
-                )
+                    )
             )
         }
     }

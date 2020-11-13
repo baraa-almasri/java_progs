@@ -55,24 +55,24 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/encrypt"
+                    android:id="@+id/encode"
                     android:layout_marginRight="10pt"
                     android:layout_marginLeft="10pt"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ENCRYPT!"
+                    android:text="ENCODE!"
                     android:onClick="evaluate"
                     android:background="@color/black"/>
 
                 <Button
-                    android:id="@+id/decrypt"
+                    android:id="@+id/decode"
                     android:layout_marginRight="10pt"
                     android:layout_marginLeft="10pt"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="DECRYPT!"
+                    android:text="DECODE!"
                     android:onClick="evaluate"
                     android:background="@color/black"/>
 
