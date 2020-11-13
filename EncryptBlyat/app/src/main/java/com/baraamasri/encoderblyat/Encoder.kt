@@ -1,15 +1,12 @@
 package com.baraamasri.encoderblyat
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import java.util.Base64
+import android.util.Base64
 
 class Encoder(message: String): Crypt(message){
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun getProcessedMessage(): String {
-        return Base64.getEncoder().encodeToString(
-            this.encodeBlyat().toByteArray()
+        return Base64.encodeToString(
+            this.encodeBlyat().toByteArray(), 0
         )
     }
 

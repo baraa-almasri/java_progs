@@ -1,17 +1,13 @@
 package com.baraamasri.encoderblyat
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import java.util.Base64
+import android.util.Base64
 import kotlin.collections.ArrayList
 
-
-@RequiresApi(Build.VERSION_CODES.O)
 class Decoder(message: String): Crypt(message) {
     private var entries: ArrayList<String>
     init {
-        this.message = String(Base64.getDecoder().decode(
-            message.toByteArray()
+        this.message = String(Base64.decode(
+            message.toByteArray(), 0
         )) + "0" // additional digit in order to get the last digit
 
         this.removeLowers()
