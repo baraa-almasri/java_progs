@@ -5,17 +5,14 @@ import kotlin.math.pow
 import java.lang.StringIndexOutOfBoundsException
 
 abstract class Parser(expression: String) {
-    var expression: String = ""
-        get() = field
-        private set
-
+    private var expression: String
     protected var lastAnswer: Double
     protected var entries: ArrayList<String>
 
     init {
-        this.expression = (if(expression[0] == ' ') "" else " ") + // so the evaluate function won't get confused
+        this.expression = " " + // so the evaluate function won't get confused
                 (if(checkExpression(expression)) expression else "")  +
-                if(expression[expression.length-1] == ' ') "" else " " // LOL
+                " " // LOL
 
         this.removeExtraSpaces()
         this.lastAnswer = 0.0
@@ -30,20 +27,10 @@ abstract class Parser(expression: String) {
 
     }
 
-    protected fun isNumber(number: String): Boolean {
-        try{
-            number.toDouble()
-        } catch(nfe: NumberFormatException) {
-            return false
-        }
-
-        return true
-    }
-
     protected fun printWrongOps(): Boolean {
         if(!isNumberOfOperandsValid()) {
             println( (27).toChar() + "[31m" + "CHECK NUMBER OF OPERATORS!!")
-            print( (27).toChar() + "[30m")
+            print( (27).toChar() + "[0m")
 
             return true
         }
@@ -77,6 +64,16 @@ abstract class Parser(expression: String) {
         }
     }
 
+    protected fun isNumber(number: String): Boolean {
+        try{
+            number.toDouble()
+        } catch(nfe: NumberFormatException) {
+            return false
+        }
+
+        return true
+    }
+
     protected fun isOperator(chr: String): Boolean {
         val op = chr[0]
         try{
@@ -107,7 +104,7 @@ abstract class Parser(expression: String) {
         return (
                 !(chr.isLowerCase() && chr.isUpperCase()) &&
                 ( chr.isDigit() || isOperator(chr.toString()) ||
-                        chr == ' ' || chr == '.')
+                        chr == ' ' || chr == '.' )
         )
     }
 
@@ -126,36 +123,20 @@ abstract class Parser(expression: String) {
     private fun isNumberOfOperandsValid(): Boolean {
         var operands = 0
         var operators = 0
-        for(entry: String in this.entries) {
-            if(isOperator(entry)) {
+        for (entry: String in this.entries) {
+            if (isOperator(entry)) {
                 operators++
             } else {
                 operands++
             }
         }
 
-        return operands == operators+1
+        return operands == operators + 1
     }
 
     private fun removeExtraSpaces() {
-        var index = 0
-        while(index < this.expression.length-1) {
-            try {
-                if (this.expression[index] == ' ' &&
-                    this.expression[index + 1] == ' ')
-                {
-                    this.expression =
-                        this.expression.substring(0, index) +
-                                this.expression.substring(index + 1)
-                    index--
-                    continue
-                }
-            } catch(sioobe: StringIndexOutOfBoundsException) {
-                return
-            }
 
-            index++
-        }
+        this.expression = this.expression.replace("\\s+".toRegex(), " ")
     }
 
 }
