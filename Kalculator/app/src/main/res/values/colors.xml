@@ -6,5 +6,6 @@
     <color name="grey">#D6D6D6</color>
     <color name="teal">#339966</color>
     <color name="purple">#b30059</color>
+    <color name="black">#222222</color>
     <color name="orange">#ff3300</color>
 </resources>

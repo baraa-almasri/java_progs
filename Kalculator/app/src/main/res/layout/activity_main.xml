@@ -26,6 +26,7 @@
             android:digits=""
             android:gravity="right"
             android:inputType="text"
+            android:textColor="@color/black"
             android:text="0"
             android:textSize="48sp"
             android:background="@color/grey"

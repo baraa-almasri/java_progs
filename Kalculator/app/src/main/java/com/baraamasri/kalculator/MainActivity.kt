@@ -6,6 +6,8 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Button
 import android.widget.Toast
+import com.baraamasri.kalculator.parser.InfixParser
+import java.lang.NumberFormatException
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,6 +15,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
     }
+
+    /*
+     * Intro to the mess bellow:
+     * addEntry: 1. adds an entry to the expression at the current cursor location or at the end
+     *           2. if it's a number append it to the current number(or cursor place)
+     *              and sets the `operatorExist` flag to false
+     *           3. if it's an operator(and exists once) append a whitespace to the expression string then add the operator
+     *              and sets the flags `numberHasFloatingPoint` to false, `operatorExist` to true
+     *           4. if it's a floating point(and exists once) append it to the number
+     *              and sets the flag `numberHasFloatingPoint` to true
+     *
+     * evaluate: evaluates the given infix expression and adds a whitespace to the beginning of it
+     */
 
     private var expressionParser = InfixParser("")
     private var numberHasFloatingPoint = false
@@ -24,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         numberDisplay.setText(
                 " ${expressionParser.evaluate()}"
         )
+        numberHasFloatingPoint = true
         operatorExist = false
     }
 
@@ -31,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         butt as Button
 
         when {
-            butt.text.toString()[0].isDigit() -> {
+            isNumber(butt.text.toString()) -> {
                 expressionParser.expression = addToString(
                     expressionParser.expression,
                     butt.text.toString(),
@@ -39,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                         numberDisplay.selectionStart - 1
                     else numberDisplay.text.toString().length-1
                 )
+                operatorExist = false
 
             }
             butt.text.toString()[0] == '.' && !numberHasFloatingPoint -> {
@@ -52,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                     else numberDisplay.text.toString().length-1
                 )
             }
-            isOperator(butt.text.toString()[0]) && !operatorExist -> {
+            isOperator(butt.text.toString()) && !operatorExist -> {
                 expressionParser.addEntry(
                     if(butt.text.toString() == "÷") " / " else " ${butt.text} "
                 )
@@ -84,15 +101,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun removeInitialDots(number: String): String {
 
-        return if(number[0] != '.') number
-        else "0$number"
+        return number.replace(" [.]".toRegex(), "0.")
     }
 
-    private fun isOperator(chr: Char): Boolean {
+    private fun isNumber(number: String): Boolean {
+        try{
+            number.toDouble()
+        } catch(nfe: NumberFormatException) {
+            return false
+        }
 
-        return chr == '+' || chr == '-' ||
-                chr == '*' || chr == '/' ||
-                chr == '^' || chr == '÷'
+        return true
+    }
+
+    private fun isOperator(chr: String): Boolean {
+        val op = chr[0]
+        try{
+            chr[1]
+
+        } catch(sioobe: StringIndexOutOfBoundsException) {
+            return op == '+' || op == '-' ||
+                    op == '*' || op == '/' ||
+                    op == '^'
+
+        }
+
+        return false
     }
 
 }
