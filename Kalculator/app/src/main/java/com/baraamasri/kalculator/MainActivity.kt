@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
 
         } catch(sioobe: StringIndexOutOfBoundsException) {
             return op == '+' || op == '-' ||
-                    op == '*' || op == '/' ||
+                    op == '*' || op == '÷' ||
                     op == '^'
 
         }
