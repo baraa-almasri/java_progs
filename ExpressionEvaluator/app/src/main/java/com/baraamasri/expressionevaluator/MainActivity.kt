@@ -5,16 +5,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
 import kotlinx.android.synthetic.main.activity_main.*
-import com.baraamasri.expressionevaluator.parser.*
 import android.widget.Toast
+import java.util.EmptyStackException
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var expressionEvaluator: Evaluator
+    private var expressionType = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
-    var expressionType = ""
     fun selectExpressionType(view: View) {
         view as CheckBox
 
@@ -51,44 +53,54 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun evaluate(view: View) {
-        val parser: Parser
-
+    private fun setExpressionType() {
         when (expressionType) {
             "Infix" -> {
-                parser = InfixParser(expressionText.text.toString())
+                expressionEvaluator = InfixEvaluator(expressionText.text.toString())
             }
             "Postfix" -> {
-                parser = PostfixParser(expressionText.text.toString())
+                expressionEvaluator = PostfixEvaluator(expressionText.text.toString())
             }
             "Prefix" -> {
-                parser = PrefixParser(expressionText.text.toString())
+                expressionEvaluator = PrefixEvaluator(expressionText.text.toString())
             }
             else -> {
                 result.setText("Select expression type!")
                 makeToastBlyat()
-                return
             }
         }
+    }
+
+    fun evaluate(view: View) {
 
         try {
-            val answer = parser.evaluate()
+            setExpressionType()
 
             result.setText(
-                if(answer == Double.MIN_VALUE )"Enter operators correctly!"
-                else answer.toString()
+                    expressionEvaluator.evaluate().toString()
             )
 
         } catch(oobe: IndexOutOfBoundsException) {
             result.setText("Select expression type correctly!")
             makeToastBlyat()
-            return
 
         } catch(nfe: NumberFormatException) {
             result.setText("Enter number correctly!")
             makeToastBlyat()
-            return
+
+        } catch(ese: EmptyStackException) {
+            result.setText("Really?!")
+            makeToastBlyat()
+
+        } catch(wre: WrongOperatorsException) {
+            result.setText("What the hell was that!!")
+            makeToastBlyat()
+
+        } catch(nvee: NotValidExpressionException) {
+            result.setText("Enter expression correctry!")
+            makeToastBlyat()
         }
+
 
     }
 
