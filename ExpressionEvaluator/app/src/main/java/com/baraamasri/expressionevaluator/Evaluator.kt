@@ -3,7 +3,7 @@ package com.baraamasri.expressionevaluator
 import kotlin.math.pow
 
 abstract class Evaluator(expression: String) {
-     var expression: String
+    var expression: String
     protected var entries: ArrayList<String>
 
     init {

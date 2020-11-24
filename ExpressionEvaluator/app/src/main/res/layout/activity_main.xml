@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text=""
-                android:digits="0123456798+-*/.^ "/>
+                android:digits="0123456798+-*/.p ()"/>
 
             <LinearLayout
                 android:id="@+id/expressionSelector"

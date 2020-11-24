@@ -1,6 +1,6 @@
 package com.baraamasri.expressionevaluator
 
-import java.util.Stack
+import java.util.*
 
 class PostfixEvaluator(expression: String) : Evaluator(expression) {
     override fun evaluate(): Double {

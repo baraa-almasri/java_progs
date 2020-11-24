@@ -1,7 +1,6 @@
 package com.baraamasri.expressionevaluator
 
-import java.util.Stack
-import kotlin.collections.ArrayList
+import java.util.*
 
 class ExpressionConverter(expression: String) {
     private var entries: ArrayList<String>
@@ -11,7 +10,7 @@ class ExpressionConverter(expression: String) {
     }
 
     fun convertInfix2Postfix(): String {
-        if(!ExpressionChecker.isInfix(this.entries)) {
+        if (!ExpressionChecker.isInfix(this.entries)) {
             throw NotValidExpressionException("Check expression type")
         }
 

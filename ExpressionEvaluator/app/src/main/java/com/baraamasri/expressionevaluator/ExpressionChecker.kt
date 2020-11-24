@@ -5,11 +5,11 @@ object ExpressionChecker {
         return (
             (TermChecker.isNumber(entries.first()) ||
                 TermChecker.isParenth(entries.first())
-            ) &&
+                ) &&
                 (TermChecker.isNumber(entries.last()) ||
                     TermChecker.isParenth(entries.last())
-                )
-        )
+                    )
+            )
     }
 
     fun isPostfix(entries: ArrayList<String>): Boolean {

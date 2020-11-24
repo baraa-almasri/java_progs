@@ -1,12 +1,11 @@
 package com.baraamasri.expressionevaluator
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
-import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
-import java.util.EmptyStackException
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var expressionEvaluator: Evaluator
@@ -22,31 +21,32 @@ class MainActivity : AppCompatActivity() {
 
         when (view.id) {
             R.id.infixCheck -> {
-                if(prefixCheck.isChecked) {
+                if (prefixCheck.isChecked) {
                     prefixCheck.toggle()
                 }
 
-                if(postfixCheck.isChecked) {
+                if (postfixCheck.isChecked) {
                     postfixCheck.toggle()
                 }
             }
             R.id.postfixCheck -> {
-                if(infixCheck.isChecked) {
+                if (infixCheck.isChecked) {
                     infixCheck.toggle()
                 }
-                if(prefixCheck.isChecked) {
+                if (prefixCheck.isChecked) {
                     prefixCheck.toggle()
                 }
             }
             R.id.prefixCheck -> {
-                if(infixCheck.isChecked) {
+                if (infixCheck.isChecked) {
                     infixCheck.toggle()
                 }
-                    if(postfixCheck.isChecked) {
+                if (postfixCheck.isChecked) {
                     postfixCheck.toggle()
                 }
             }
-            else -> {}
+            else -> {
+            }
         }
 
         expressionType = view.text.toString()
@@ -77,14 +77,14 @@ class MainActivity : AppCompatActivity() {
             setExpressionType()
 
             result.setText(
-                    expressionEvaluator.evaluate().toString()
+                expressionEvaluator.evaluate().toString()
             )
 
-        } catch(wre: WrongOperatorsException) {
+        } catch (wre: WrongOperatorsException) {
             result.setText("What the hell was that!!")
             makeToastBlyat()
 
-        } catch(nvee: NotValidExpressionException) {
+        } catch (nvee: NotValidExpressionException) {
             result.setText("Really?!")
             makeToastBlyat()
         }
