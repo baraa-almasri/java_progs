@@ -80,24 +80,12 @@ class MainActivity : AppCompatActivity() {
                     expressionEvaluator.evaluate().toString()
             )
 
-        } catch(oobe: IndexOutOfBoundsException) {
-            result.setText("Select expression type correctly!")
-            makeToastBlyat()
-
-        } catch(nfe: NumberFormatException) {
-            result.setText("Enter number correctly!")
-            makeToastBlyat()
-
-        } catch(ese: EmptyStackException) {
-            result.setText("Really?!")
-            makeToastBlyat()
-
         } catch(wre: WrongOperatorsException) {
             result.setText("What the hell was that!!")
             makeToastBlyat()
 
         } catch(nvee: NotValidExpressionException) {
-            result.setText("Enter expression correctry!")
+            result.setText("Really?!")
             makeToastBlyat()
         }
 

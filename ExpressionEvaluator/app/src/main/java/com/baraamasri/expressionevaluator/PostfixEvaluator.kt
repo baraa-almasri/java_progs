@@ -2,15 +2,19 @@ package com.baraamasri.expressionevaluator
 
 import java.util.Stack
 
-class PostfixEvaluator(expression: String): Evaluator(expression) {
+class PostfixEvaluator(expression: String) : Evaluator(expression) {
     override fun evaluate(): Double {
+        if (!ExpressionChecker.isPostfix(this.entries)) {
+            throw NotValidExpressionException("Check expression type!")
+        }
+
         val numbers = Stack<Double>()
 
-        for(entry: String in this.entries) {
-            if(TermChecker.isNumber(entry)) {
+        for (entry: String in this.entries) {
+            if (TermChecker.isNumber(entry)) {
                 numbers.push(entry.toDouble())
             }
-            if(TermChecker.isOperator(entry)) {
+            if (TermChecker.isOperator(entry)) {
                 val secondOperand = numbers.peek()
                 numbers.pop()
                 val firstOperand = numbers.peek()
@@ -25,5 +29,6 @@ class PostfixEvaluator(expression: String): Evaluator(expression) {
 
         return numbers.peek()
     }
+
 
 }

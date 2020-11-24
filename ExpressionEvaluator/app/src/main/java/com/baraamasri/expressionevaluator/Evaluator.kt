@@ -3,7 +3,7 @@ package com.baraamasri.expressionevaluator
 import kotlin.math.pow
 
 abstract class Evaluator(expression: String) {
-    private var expression: String
+     var expression: String
     protected var entries: ArrayList<String>
 
     init {
@@ -19,10 +19,8 @@ abstract class Evaluator(expression: String) {
         this.entries = (Parser(this.expression)).entries
     }
 
-    protected fun execOperator
-            (rightOperand: Double, leftOperand: Double, op: Char)
-            : Double
-    {
+    protected fun execOperator(rightOperand: Double, leftOperand: Double, op: Char)
+        : Double {
 
         return when (op) {
             '+' -> rightOperand + leftOperand
@@ -33,7 +31,6 @@ abstract class Evaluator(expression: String) {
             else -> 0.0
         }
     }
-
 
 
 }
