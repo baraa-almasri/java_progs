@@ -1,4 +1,4 @@
-package com.baraamasri.expressionevaluator
+package ExpressionToolbox
 
 class WrongOperatorsException : Throwable {
     constructor() : super()

@@ -1,4 +1,4 @@
-package com.baraamasri.expressionevaluator
+package ExpressionToolbox
 
 object TermChecker {
     fun isNumber(number: String): Boolean {
@@ -23,7 +23,7 @@ object TermChecker {
         } catch (sioobe: StringIndexOutOfBoundsException) {
             return op == '+' || op == '-' ||
                 op == '*' || op == '/' ||
-                op == 'p'
+                op == '^'
 
         }
 

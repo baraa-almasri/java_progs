@@ -1,99 +1,110 @@
 package com.baraamasri.expressionevaluator
 
-import androidx.appcompat.app.AppCompatActivity
+import ExpressionToolbox.*
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
-import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
-import java.util.EmptyStackException
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var expressionEvaluator: Evaluator
-    private var expressionType = ""
+    // for cleaner expression selection
+    enum class ExpressionType {
+        INFIX,
+        PREFIX,
+        POSTFIX,
+        NON
+    }
+
+    private var expressionEvaluator: Evaluator? = null
+    private var expressionType = ExpressionType.NON
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
-    fun selectExpressionType(view: View) {
+    fun selectInfix(view: View) {
         view as CheckBox
 
-        when (view.id) {
-            R.id.infixCheck -> {
-                if(prefixCheck.isChecked) {
-                    prefixCheck.toggle()
-                }
-
-                if(postfixCheck.isChecked) {
-                    postfixCheck.toggle()
-                }
-            }
-            R.id.postfixCheck -> {
-                if(infixCheck.isChecked) {
-                    infixCheck.toggle()
-                }
-                if(prefixCheck.isChecked) {
-                    prefixCheck.toggle()
-                }
-            }
-            R.id.prefixCheck -> {
-                if(infixCheck.isChecked) {
-                    infixCheck.toggle()
-                }
-                    if(postfixCheck.isChecked) {
-                    postfixCheck.toggle()
-                }
-            }
-            else -> {}
+        if (prefixCheck.isChecked) {
+            prefixCheck.toggle()
         }
 
-        expressionType = view.text.toString()
+        if (postfixCheck.isChecked) {
+            postfixCheck.toggle()
+        }
 
+
+        this.expressionType = ExpressionType.INFIX
     }
 
-    private fun setExpressionType() {
-        when (expressionType) {
-            "Infix" -> {
-                expressionEvaluator = InfixEvaluator(expressionText.text.toString())
-            }
-            "Postfix" -> {
-                expressionEvaluator = PostfixEvaluator(expressionText.text.toString())
-            }
-            "Prefix" -> {
-                expressionEvaluator = PrefixEvaluator(expressionText.text.toString())
-            }
-            else -> {
-                result.setText("Select expression type!")
-                makeToastBlyat()
-            }
+    fun selectPostfix(view: View) {
+        view as CheckBox
+
+        if (infixCheck.isChecked) {
+            infixCheck.toggle()
         }
+        if (prefixCheck.isChecked) {
+            prefixCheck.toggle()
+        }
+
+        this.expressionType = ExpressionType.POSTFIX
+    }
+
+    fun selectPrefix(view: View) {
+        view as CheckBox
+
+        if (infixCheck.isChecked) {
+            infixCheck.toggle()
+        }
+        if (postfixCheck.isChecked) {
+            postfixCheck.toggle()
+        }
+
+        this.expressionType = ExpressionType.PREFIX
     }
 
     fun evaluate(view: View) {
-
         try {
             setExpressionType()
 
-            result.setText(
-                    expressionEvaluator.evaluate().toString()
-            )
-
-        } catch(wre: WrongOperatorsException) {
+            if (this.expressionEvaluator != null) {
+                result.setText(
+                    expressionEvaluator?.evaluate().toString()
+                )
+            }
+        } catch (wre: WrongOperatorsException) {
             result.setText("What the hell was that!!")
             makeToastBlyat()
 
-        } catch(nvee: NotValidExpressionException) {
+        } catch (nvee: NotValidExpressionException) {
             result.setText("Really?!")
             makeToastBlyat()
         }
 
-
     }
 
-    fun makeToastBlyat() {
+    private fun makeToastBlyat() {
         (Toast.makeText(applicationContext, "блять!", Toast.LENGTH_SHORT)).show()
+    }
+
+    private fun setExpressionType() {
+        this.expressionEvaluator = when (expressionType) {
+            ExpressionType.INFIX -> {
+                InfixEvaluator(expressionText.text.toString())
+            }
+            ExpressionType.POSTFIX -> {
+                PostfixEvaluator(expressionText.text.toString())
+            }
+            ExpressionType.PREFIX -> {
+                PrefixEvaluator(expressionText.text.toString())
+            }
+            else -> {
+                null
+            }
+        }
     }
 
 }

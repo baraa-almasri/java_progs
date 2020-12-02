@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="selectExpressionType"
+                    android:onClick="selectInfix"
                     android:text="Infix" />
 
                 <CheckBox
@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="selectExpressionType"
+                    android:onClick="selectPrefix"
                     android:text="Prefix" />
 
                 <CheckBox
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="selectExpressionType"
+                    android:onClick="selectPostfix"
                     android:text="Postfix" />
 
             </LinearLayout>

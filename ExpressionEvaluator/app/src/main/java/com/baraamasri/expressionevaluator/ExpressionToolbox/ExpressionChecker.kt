@@ -1,15 +1,15 @@
-package com.baraamasri.expressionevaluator
+package ExpressionToolbox
 
 object ExpressionChecker {
     fun isInfix(entries: ArrayList<String>): Boolean {
         return (
             (TermChecker.isNumber(entries.first()) ||
                 TermChecker.isParenth(entries.first())
-            ) &&
+                ) &&
                 (TermChecker.isNumber(entries.last()) ||
                     TermChecker.isParenth(entries.last())
-                )
-        )
+                    )
+            )
     }
 
     fun isPostfix(entries: ArrayList<String>): Boolean {
