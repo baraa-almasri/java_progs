@@ -6,16 +6,10 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Button
 import android.widget.Toast
-import com.baraamasri.kalculator.parser.InfixParser
 import java.lang.NumberFormatException
+import ExpressionToolbox.*
 
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-    }
-
     /*
      * Intro to the mess bellow:
      * addEntry: 1. adds an entry to the expression at the current cursor location or at the end
@@ -29,64 +23,80 @@ class MainActivity : AppCompatActivity() {
      * evaluate: evaluates the given infix expression and adds a whitespace to the beginning of it
      */
 
-    private var expressionParser = InfixParser("")
+    private lateinit var evaluator: InfixEvaluator
+    private var expression = ""
     private var numberHasFloatingPoint = false
     private var operatorExist = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+    }
+
     fun evaluate(view: View) {
-        expressionParser.addEntry(" ")
-        expressionParser.expression = removeInitialDots(expressionParser.expression)
+        //evaluator.addEntry(" ")
+
+        this.expression = removeInitialDots(this.expression)
+
+        this.evaluator = InfixEvaluator(this.expression)
         numberDisplay.setText(
-                " ${expressionParser.evaluate()}"
+                evaluator.evaluate().toString()
         )
         numberHasFloatingPoint = true
         operatorExist = false
     }
 
-    fun addEntry(butt: View) {
-        butt as Button
+
+    // TODO
+    // separate when into functions blyat
+    fun addEntry(view: View) {
+        view as Button
+
+        val entry = view.text.toString()
+        val cursorLocation = numberDisplay.selectionStart
 
         when {
-            isNumber(butt.text.toString()) -> {
-                expressionParser.expression = addToString(
-                    expressionParser.expression,
-                    butt.text.toString(),
-                    if((numberDisplay.selectionStart - 1) > 0)
-                        numberDisplay.selectionStart - 1
+            TermChecker.isNumber(entry) -> {
+                this.expression = addToString(
+                    this.expression,
+                    entry,
+                    if (cursorLocation > 0)
+                        cursorLocation-1
                     else numberDisplay.text.toString().length-1
                 )
                 operatorExist = false
-
             }
-            butt.text.toString()[0] == '.' && !numberHasFloatingPoint -> {
+            entry == "." && !numberHasFloatingPoint -> {
                 numberHasFloatingPoint = true
 
-                expressionParser.expression = addToString(
-                    expressionParser.expression,
-                    butt.text.toString(),
-                    if((numberDisplay.selectionStart - 1) > 0)
-                        numberDisplay.selectionStart - 1
+                this.expression = addToString(
+                    this.expression,
+                    entry,
+                    if (cursorLocation > 0)
+                        cursorLocation-1
                     else numberDisplay.text.toString().length-1
                 )
             }
-            isOperator(butt.text.toString()) && !operatorExist -> {
-                expressionParser.addEntry(
-                    if(butt.text.toString() == "÷") " / " else " ${butt.text} "
+            TermChecker.isOperator(entry) -> {
+                this.expression = addToString(
+                    this.expression,
+                    if (entry == "÷") "/" else entry,
+                    if (cursorLocation > 0)
+                        cursorLocation-1
+                    else numberDisplay.text.toString().length-1
                 )
-                numberHasFloatingPoint = false
-                operatorExist = true
-
             }
         }
 
-        numberDisplay.setText(expressionParser.expression)
+        numberDisplay.setText(this.expression)
     }
 
     fun clear(view: View) {
         operatorExist = false
         numberHasFloatingPoint = false
-        expressionParser.expression = " "
-        numberDisplay.setText("0")
+        this.expression = ""
+        numberDisplay.setText("")
     }
 
     fun makeToastNotReady(view: View) {
@@ -102,31 +112,6 @@ class MainActivity : AppCompatActivity() {
     private fun removeInitialDots(number: String): String {
 
         return number.replace(" [.]".toRegex(), "0.")
-    }
-
-    private fun isNumber(number: String): Boolean {
-        try{
-            number.toDouble()
-        } catch(nfe: NumberFormatException) {
-            return false
-        }
-
-        return true
-    }
-
-    private fun isOperator(chr: String): Boolean {
-        val op = chr[0]
-        try{
-            chr[1]
-
-        } catch(sioobe: StringIndexOutOfBoundsException) {
-            return op == '+' || op == '-' ||
-                    op == '*' || op == '÷' ||
-                    op == '^'
-
-        }
-
-        return false
     }
 
 }
