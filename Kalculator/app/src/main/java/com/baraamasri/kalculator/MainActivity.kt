@@ -6,8 +6,19 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Button
 import android.widget.Toast
-import java.lang.NumberFormatException
 import ExpressionToolbox.*
+import android.app.Activity
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
+
+fun Activity.hideKeyboard() {
+    hideKeyboard(currentFocus ?: View(this))
+}
+
+fun Context.hideKeyboard(view: View) {
+    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+}
 
 class MainActivity : AppCompatActivity() {
     /*
@@ -32,17 +43,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        numberDisplay.setOnClickListener {
+            hideKeyboard()
+        }
+
     }
 
     fun evaluate(view: View) {
-        //evaluator.addEntry(" ")
+        // TODO
+        // catch WrongExpressionBlyat
 
         this.expression = removeInitialDots(this.expression)
 
         this.evaluator = InfixEvaluator(this.expression)
-        numberDisplay.setText(
-                evaluator.evaluate().toString()
-        )
+        val answer = evaluator.evaluate().toString()
+        this.expression =
+                answer.substring(0, if (answer.length > 7) 8 else answer.length)
+
+        numberDisplay.setText(expression)
         numberHasFloatingPoint = true
         operatorExist = false
     }
@@ -66,6 +84,7 @@ class MainActivity : AppCompatActivity() {
                     else numberDisplay.text.toString().length-1
                 )
                 operatorExist = false
+                numberHasFloatingPoint = false
             }
             entry == "." && !numberHasFloatingPoint -> {
                 numberHasFloatingPoint = true
@@ -78,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                     else numberDisplay.text.toString().length-1
                 )
             }
-            TermChecker.isOperator(entry) -> {
+            TermChecker.isOperator(entry) || entry == "÷"-> {
                 this.expression = addToString(
                     this.expression,
                     if (entry == "÷") "/" else entry,
@@ -86,6 +105,8 @@ class MainActivity : AppCompatActivity() {
                         cursorLocation-1
                     else numberDisplay.text.toString().length-1
                 )
+
+                numberHasFloatingPoint = false
             }
         }
 
