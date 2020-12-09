@@ -2,12 +2,10 @@ package com.baraamasri.todo
 
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: TaskAdapter
@@ -36,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     fun addTask(view: View) {
 
         val addTaskActivity = Intent(applicationContext, TaskAdder::class.java)
-        addTaskActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        addTaskActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(addTaskActivity)
 
     }
@@ -55,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             val description = curr.getString(curr.getColumnIndex("description"))
             val creationDate = curr.getString(curr.getColumnIndex("creation_date"))
 
-            this.tasks.add( Task( id, name, description, creationDate ) )
+            this.tasks.add(Task(id, name, description, creationDate))
 
             curr.moveToNext()
         }

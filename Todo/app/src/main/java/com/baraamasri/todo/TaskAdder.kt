@@ -23,13 +23,21 @@ class TaskAdder : AppCompatActivity() {
         this.db = this.dbHelper.readableDatabase
         val curr = this.db.rawQuery("SELECT * FROM `last_id`", null)
         curr.moveToLast()
-        var taskID = curr.getInt(curr.getColumnIndex("id"))
+
+        var taskID = try {
+            curr.getInt(curr.getColumnIndex("id"))
+        } catch (oob: android.database.CursorIndexOutOfBoundsException) {
+            0
+        }
+
         curr.close()
 
         // add task DB
         this.db = this.dbHelper.writableDatabase
-        this.db.execSQL("INSERT INTO `tasks` VALUES (?, ?, ?, CURRENT_TIME)",
-            arrayOf(taskID++.toString(), name.text.toString(), des.text.toString()))
+        this.db.execSQL(
+            "INSERT INTO `tasks` VALUES (?, ?, ?, CURRENT_TIME)",
+            arrayOf(taskID++.toString(), name.text.toString(), des.text.toString())
+        )
 
         this.db.execSQL("INSERT INTO `last_id` VALUES (?)", arrayOf(taskID))
 
