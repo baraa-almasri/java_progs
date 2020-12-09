@@ -33,14 +33,7 @@
                 android:textSize="36sp" />
 
             <TextView
-                android:id="@+id/des"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Description Blyat"
-                android:textSize="24sp" />
-
-            <TextClock
-                android:id="@+id/dueDate"
+                android:id="@+id/creation_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="lol"/>
