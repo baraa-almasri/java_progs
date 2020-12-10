@@ -7,6 +7,7 @@
     android:padding="5pt">
 
     <LinearLayout
+        android:id="@+id/hlo1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/task_ticket_shape"
@@ -29,12 +30,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CYKA NAHUI BLYAT"
+                android:textColor="@color/black"
                 android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/creation_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:text="lol" />
         </LinearLayout>
     </LinearLayout>

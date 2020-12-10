@@ -9,7 +9,8 @@ class DBHelper(context: Context) :
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(
-            "CREATE TABLE `tasks` (id INT UNIQUE, name VARCHAR(300), description VARCHAR(9999), creation_date DATE)"
+            "CREATE TABLE `tasks` (id INT UNIQUE, name VARCHAR(300)," +
+                    " description VARCHAR(9999), creation_date DATE, is_done INT(1))"
         )
 
         db?.execSQL("CREATE TABLE `last_id` (id INT)")

@@ -9,9 +9,11 @@ import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.task_card.view.*
 
 class TaskAdapter(
-    var tasksList: ArrayList<Task>,
+    private var tasksList: ArrayList<Task>,
     private var appContext: Context
 ) : BaseAdapter() {
+
+    private lateinit var tasksDB: TasksDBModifier
 
     override fun getCount(): Int {
         return this.tasksList.size
@@ -31,8 +33,30 @@ class TaskAdapter(
         view.name.text = task.name
         view.creation_date.text = task.creationDate.substring(0, 5)
 
+        view.hlo1.setBackgroundResource(
+                when (task.isDone) {
+                    false -> R.drawable.task_ticket_shape
+                    true -> R.drawable.done_task_ticket_shape
+        })
+
         view.setOnClickListener {
             openTask(this.tasksList[position])
+        }
+
+        this.tasksDB = TasksDBModifier(this.appContext)
+
+        view.setOnLongClickListener {
+            // remove blyat
+            view.hlo1.setBackgroundResource(
+                    when (task.isDone) {
+                        false -> R.drawable.task_ticket_shape
+                        true -> R.drawable.done_task_ticket_shape
+                    })
+            val doneTask = Task(task)
+            doneTask.isDone = !task.isDone
+            this.tasksDB.modifyTask(task, doneTask)
+
+            return@setOnLongClickListener true
         }
 
         return view

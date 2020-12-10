@@ -12,12 +12,14 @@ class TaskViewer : AppCompatActivity() {
     private lateinit var db: SQLiteDatabase
     private lateinit var dbHelper: DBHelper
     private var taskID: Int? = null
+    private lateinit var tasksDB: TasksDBModifier
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_viewer)
 
         this.dbHelper = DBHelper(this)
+        this.tasksDB = TasksDBModifier(this)
 
         val data = intent.extras
         taskName.text = data?.getString("name")
@@ -52,7 +54,10 @@ class TaskViewer : AppCompatActivity() {
     }
 
     private fun deleteFromDB() {
-        this.db = this.dbHelper.writableDatabase
+        this.tasksDB.removeTaskByID(this.taskId)
+
+        /*this.db = this.dbHelper.writableDatabase
         this.db.execSQL("DELETE FROM `tasks` WHERE `id` = ?", arrayOf(this.taskID))
+        */
     }
 }
