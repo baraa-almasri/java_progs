@@ -30,14 +30,17 @@ class TaskAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val task = this.tasksList[position]
         val view = LayoutInflater.from(this.appContext).inflate(R.layout.task_card, null)
+
         view.name.text = task.name
-        view.creation_date.text = task.creationDate.substring(0, 5)
+        view.creation_date.text =
+            task.creationDate.substring(0, task.creationDate.lastIndexOf('/'))
 
         view.hlo1.setBackgroundResource(
             when (task.isDone) {
                 false -> R.drawable.task_ticket_shape
                 true -> R.drawable.done_task_ticket_shape
-            })
+            }
+        )
 
         view.setOnClickListener {
             openTask(this.tasksList[position])
@@ -46,21 +49,24 @@ class TaskAdapter(
         this.tasksDB = TasksDBModifier(this.appContext)
 
         view.setOnLongClickListener {
-            task.isDone = !task.isDone
-            this.tasksDB.modifyTask(task.id, task)
-
-            view.hlo1.setBackgroundResource(
-                when (task.isDone) {
-                    false -> R.drawable.task_ticket_shape
-                    true -> R.drawable.done_task_ticket_shape
-                })
-
+            flipTaskState(task, view)
             return@setOnLongClickListener true
         }
 
         return view
     }
 
+    private fun flipTaskState(task: Task, taskView: View) {
+        task.isDone = !task.isDone
+        this.tasksDB.modifyTask(task.id, task)
+
+        taskView.hlo1.setBackgroundResource(
+            when (task.isDone) {
+                false -> R.drawable.task_ticket_shape
+                true -> R.drawable.done_task_ticket_shape
+            }
+        )
+    }
 
     private fun openTask(task: Task) {
         val viewTaskActivity = Intent(this.appContext, TaskViewer::class.java)

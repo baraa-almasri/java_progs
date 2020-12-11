@@ -30,11 +30,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addTask(view: View) {
-
         val addTaskActivity = Intent(applicationContext, TaskAdder::class.java)
         addTaskActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(addTaskActivity)
-
     }
 
     private fun loadTasksFromDB() {

@@ -18,7 +18,7 @@ class TaskAdder : AppCompatActivity() {
     }
 
     fun actualAddTask(view: View) {
-        val timeFormatter = SimpleDateFormat("HH:mm")
+        val timeFormatter = SimpleDateFormat("MMM/d/Y  HH:mm")
         val currentTime = Date()
         this.tasksDB.addTask(
             Task(

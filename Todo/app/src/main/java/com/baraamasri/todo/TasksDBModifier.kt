@@ -36,8 +36,8 @@ class TasksDBModifier(context: Context) {
         this.openWritableDB()
         val nextID = this.getLastTaskID() + 1
         this.db.execSQL(
-            "INSERT INTO `tasks` VALUES (?, ?, ?, CURRENT_TIME, ?)",
-            arrayOf(nextID, task.name, task.des, if (task.isDone) 1 else 0)
+            "INSERT INTO `tasks` VALUES (?, ?, ?, ?, ?)",
+            arrayOf(nextID, task.name, task.des, task.creationDate, if (task.isDone) 1 else 0)
         )
 
         // add new id

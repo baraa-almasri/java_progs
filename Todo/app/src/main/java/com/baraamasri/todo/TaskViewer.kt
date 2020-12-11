@@ -22,7 +22,6 @@ class TaskViewer : AppCompatActivity() {
         description.text = data?.getString("description")
         creationDate.text = data?.getString("creationDate")
         this.taskID = data?.getInt("taskID")!!
-
     }
 
     fun goBack(view: View) {
