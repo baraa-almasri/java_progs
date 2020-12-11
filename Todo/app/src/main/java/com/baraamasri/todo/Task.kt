@@ -1,5 +1,7 @@
 package com.baraamasri.todo
 
-import java.util.Date
+class Task(var id: Int, var name: String, var des: String, var creationDate: String, var isDone: Boolean) {
 
-class Task(var id: Int, var name: String, var des: String, var creationDate: String)
+    constructor(otherTask: Task) :
+        this(otherTask.id, otherTask.name, otherTask.des, otherTask.creationDate, otherTask.isDone)
+}

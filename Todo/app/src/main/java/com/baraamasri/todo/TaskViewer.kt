@@ -1,30 +1,27 @@
 package com.baraamasri.todo
 
 import android.content.DialogInterface
-import android.database.sqlite.SQLiteDatabase
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.activity_add_task.*
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_task_viewer.*
 
 class TaskViewer : AppCompatActivity() {
-    private lateinit var db: SQLiteDatabase
-    private lateinit var dbHelper: DBHelper
-    private var taskID: Int? = null
+    private var taskID: Int = 0
+    private lateinit var tasksDB: TasksDBModifier
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_viewer)
 
-        this.dbHelper = DBHelper(this)
+        this.tasksDB = TasksDBModifier(this)
 
         val data = intent.extras
         taskName.text = data?.getString("name")
         description.text = data?.getString("description")
         creationDate.text = data?.getString("creationDate")
-        this.taskID = data?.getInt("taskID")
+        this.taskID = data?.getInt("taskID")!!
 
     }
 
@@ -34,20 +31,17 @@ class TaskViewer : AppCompatActivity() {
 
     fun deleteTask(view: View) {
         showDeleteDialog()
-
-        //finish()
     }
 
     private fun showDeleteDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
 
         dialogBuilder.setMessage("Are you sure?").setCancelable(false)
-            .setPositiveButton("Yes", DialogInterface.OnClickListener{
-                dialog, id ->
+            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
                 deleteFromDB()
                 finish()
-            }).setNegativeButton("NO", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
+            }).setNegativeButton("NO", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
             })
 
         val alert = dialogBuilder.create()
@@ -56,7 +50,6 @@ class TaskViewer : AppCompatActivity() {
     }
 
     private fun deleteFromDB() {
-        this.db = this.dbHelper.writableDatabase
-        this.db.execSQL("DELETE FROM `tasks` WHERE `id` = ?", arrayOf(this.taskID))
+        this.tasksDB.removeTaskByID(this.taskID)
     }
 }

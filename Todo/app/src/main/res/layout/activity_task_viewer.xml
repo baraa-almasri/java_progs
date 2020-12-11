@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="creation date"
-                android:textSize="9pt"/>
+                android:textSize="9pt" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="description blyat"
-                android:textSize="9pt"/>
+                android:textSize="9pt" />
 
             <Space
                 android:id="@+id/space1"
@@ -67,13 +67,13 @@
 
         <LinearLayout
             android:id="@+id/hlo"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/vlo"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/vlo">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                 android:layout_weight="0"
                 android:contentDescription="Add Task"
                 android:onClick="deleteTask"
-                android:src="@drawable/trash"/>
+                android:src="@drawable/trash" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -93,10 +93,9 @@
                 android:layout_weight="0"
                 android:contentDescription="Add Task"
                 android:onClick="goBack"
-                android:src="@drawable/go_back"/>
+                android:src="@drawable/go_back" />
 
         </LinearLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

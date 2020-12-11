@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <ListView
         android:id="@+id/vlo"
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
 
     </ListView>
@@ -24,9 +22,9 @@
         android:layout_gravity="bottom|center"
         android:layout_margin="5pt"
         android:layout_weight="0"
-        android:onClick="addTask"
         android:contentDescription="hmm"
-        android:src="@drawable/plus_sign"/>
+        android:onClick="addTask"
+        android:src="@drawable/plus_sign" />
 
 
 </LinearLayout>
