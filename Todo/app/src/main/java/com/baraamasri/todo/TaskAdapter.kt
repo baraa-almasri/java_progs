@@ -34,10 +34,10 @@ class TaskAdapter(
         view.creation_date.text = task.creationDate.substring(0, 5)
 
         view.hlo1.setBackgroundResource(
-                when (task.isDone) {
-                    false -> R.drawable.task_ticket_shape
-                    true -> R.drawable.done_task_ticket_shape
-        })
+            when (task.isDone) {
+                false -> R.drawable.task_ticket_shape
+                true -> R.drawable.done_task_ticket_shape
+            })
 
         view.setOnClickListener {
             openTask(this.tasksList[position])
@@ -46,15 +46,14 @@ class TaskAdapter(
         this.tasksDB = TasksDBModifier(this.appContext)
 
         view.setOnLongClickListener {
-            // remove blyat
+            task.isDone = !task.isDone
+            this.tasksDB.modifyTask(task.id, task)
+
             view.hlo1.setBackgroundResource(
-                    when (task.isDone) {
-                        false -> R.drawable.task_ticket_shape
-                        true -> R.drawable.done_task_ticket_shape
-                    })
-            val doneTask = Task(task)
-            doneTask.isDone = !task.isDone
-            this.tasksDB.modifyTask(task, doneTask)
+                when (task.isDone) {
+                    false -> R.drawable.task_ticket_shape
+                    true -> R.drawable.done_task_ticket_shape
+                })
 
             return@setOnLongClickListener true
         }

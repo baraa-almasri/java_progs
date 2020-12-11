@@ -1,7 +1,6 @@
 package com.baraamasri.todo
 
 import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +8,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: TaskAdapter
-    private lateinit var db: SQLiteDatabase
-    private lateinit var dbHelper: DBHelper
     private lateinit var tasks: ArrayList<Task>
     private lateinit var tasksDB: TasksDBModifier
 
@@ -20,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
         this.tasks = ArrayList()
         this.tasksDB = TasksDBModifier(this)
-        this.dbHelper = DBHelper(this)
         this.loadTasksFromDB()
 
         adapter = TaskAdapter(tasks, applicationContext)
@@ -42,8 +38,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadTasksFromDB() {
-        //this.tasks.clear()
-        this.tasks = this.tasksDB.getTasks()
+        this.tasks.clear()
+        this.tasks.addAll(this.tasksDB.getTasks())
     }
 
 }

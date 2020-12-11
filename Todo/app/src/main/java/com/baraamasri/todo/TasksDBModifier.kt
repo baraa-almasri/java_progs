@@ -19,9 +19,9 @@ class TasksDBModifier(context: Context) {
         // not returning directly, in order to close the cursor
         // also also, return 0 when there're no entries created
         val taskID = try {
-            curr.getInt(curr.getColumnIndex("id"))
+            curr.getInt(curr.getColumnIndex("last_id.id"))
         } catch (oob: android.database.CursorIndexOutOfBoundsException) {
-            -1
+            0
         }
 
         curr.close()
@@ -34,30 +34,28 @@ class TasksDBModifier(context: Context) {
         // CHECK BLYAT
         // add task DB
         this.openWritableDB()
-        val nextID = this.getLastTaskID()+1
+        val nextID = this.getLastTaskID() + 1
         this.db.execSQL(
-                "INSERT INTO `tasks` VALUES (?, ?, ?, CURRENT_TIME, ?)",
-                arrayOf(nextID, task.name, task.des, if (task.isDone) 1 else 0)
+            "INSERT INTO `tasks` VALUES (?, ?, ?, CURRENT_TIME, ?)",
+            arrayOf(nextID, task.name, task.des, if (task.isDone) 1 else 0)
         )
 
         // add new id
         this.db.execSQL(
-                "INSERT INTO `last_id` VALUES (?)", arrayOf(nextID)
+            "INSERT INTO `last_id` VALUES (?)", arrayOf(nextID)
         )
     }
 
-    fun modifyTask(task: Task, newTask: Task) {
-        val curr = this.openReadableDBandGetCursor()
-        curr.moveToFirst()
-
-        removeTaskByID(task.id)
+    fun modifyTask(taskID: Int, newTask: Task) {
+        removeTaskByID(taskID)
         addTask(newTask)
     }
 
     fun removeTaskByID(taskID: Int) {
         this.openWritableDB()
+        this.db.execSQL("DELETE FROM `tasks` WHERE `id` = ?", arrayOf(taskID))
         this.db.execSQL(
-                "DELETE FROM `tasks` WHERE `id` = ?", arrayOf(taskID)
+            "DELETE FROM `last_id` WHERE `id` = ?", arrayOf(taskID)
         )
     }
 
